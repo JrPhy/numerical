@@ -1,6 +1,6 @@
-## Welcome to GitHub Pages
+## Numerical methods for solving least-square equations
 
-You can use the [editor on GitHub](https://github.com/JrPhy/numerical/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Least-square equations(LSE) is usually to fit the experiments data to see what's the relationship of two variables. For example, in Hook's law, the restoring force F and the displacement x of an object hangs on a spring can be written as F = -kx, 
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
