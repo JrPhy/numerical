@@ -26,7 +26,7 @@ int main() {
 	for(k=0; k<n+1; k++) H[k] = (double**)calloc(m+1, sizeof(double*));
 	
 	fp = fopen("A.txt","r");
-		if (fp == NULL) printf("AÀÉ®×¶}±Ò¥¢±Ñ\n");
+		if (fp == NULL) printf("Data does not exist\n");
 		for (i=1; i<m+1; i++) for(j=1; j<n+1; j++) fscanf(fp, "%lf	",&A[i][j]);
 	fclose(fp);
 
