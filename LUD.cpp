@@ -106,13 +106,6 @@ int main() {
 				}
 			}
 		}
-		for (i=k+1; i<n+1; i++)
-		{
-			if(B[i][col] != 0)
-			{
-				B[i][col] = B[i][col] - B[k][col]*B[i][col]/maximum;
-			}
-		}
 		maximum = 0;
 	}
 	//Find L(from I) and U(from B) matrix
