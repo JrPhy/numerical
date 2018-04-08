@@ -9,7 +9,7 @@
 using namespace std;
 
 int main() {
-	int i, j, k, f;	//for loop
+	int i, j, k;	//for loop
 	int m, n;	//for matrix
 	
 	printf("How many coulums?\n");
@@ -17,13 +17,12 @@ int main() {
 	printf("How many rows?\n");
 	scanf("%d", &n);
 	printf("A is %d by %d matrix\n", m, n);
-	
-	int row, col, change_row[n+1], change_col[n+1];
+
 //Loading files
 	FILE *fp;
 	double A[m+1][n+1], B[n+1][n+1], data[n+1];
-	double L[n+1][n+1], temp, max[n+1], d[n+1], maximum, c[n+1], z[n+1], Binv[n+1][n+1];
-	fp = fopen("A_matrix.txt","r");
+	double L[n+1][n+1], temp, d[n+1], c[n+1], z[n+1], Binv[n+1][n+1];
+	fp = fopen("data.txt","r");
 		if (fp == NULL) printf("A_matrix doesn't exist\n");
 		for (i=1; i<m+1; i++) for (j=1; j<n+1; j++) fscanf(fp, "%lf\n",&A[i][j]);
 	fclose(fp);
@@ -35,7 +34,6 @@ int main() {
 //Getting matrix B^-1
 	for(i=1; i<n+1; i++)
 	{
-		max[i] = 0.;
 		d[i] = 0.;
 		L[i][i] = 1.;
 		for (j=i+1; j<n+1; j++)
@@ -43,95 +41,31 @@ int main() {
 			L[i][j] = 0.;
 			L[j][i] = 0.;
 		}
-		change_row[i] = 0;
-		change_col[i] = 0;
 		c[i] = 0.;
 		z[i] = 0.;
 	}	
-	//find the maximum value before (k-1)th times elimination of whole matrix
-	for (k=1; k<n; k++)
-	{
-	
-		for (f=k; f<n+1; f++)
-		{
-			max[f] = 0;
-			for (j=1; j<n+1; j++)
-			{
-				if(fabs(B[f][j]) > fabs(max[f])) max[f] = B[f][j];	
-				if(fabs(B[f][j]) > fabs(maximum)) 
-				{
-					maximum = B[f][j];
-					row = f;
-					col = j; 
-				}	
-			}
-		}
-	//find the maximum value before (k-1)th times elimination of whole matrix
-	//Choosing the pivot
-		if(fabs(max[k]) < fabs(B[row][col]))
-		{		
-			for (j=1; j<n+1; j++)
-			{
-				temp = B[row][j];
-				B[row][j] = B[k][j];
-				B[k][j] = temp;
-
-				temp = L[row][j];
-				L[row][j] = L[k][j];
-				L[k][j] = temp;
-				
-				change_row[k] = row;
-			}
-		}
-	//Choosing the pivot
 	//Find L(from I) and U(from B) matrix
-		for (i=k+1; i<n+1; i++) 
+	for (i=k+1; i<n+1; i++) 
+	{	
+		d[i] = B[i][j]/B[i][i];
+		for (j=1; j<n+1; j++) 
 		{	
-			d[i] = B[i][col]/maximum;
-			L[i][col] = d[i];
-			for (j=1; j<n+1; j++) 
-			{	
-				if (d[i] != 0)
-				{
-					B[i][j] = B[i][j] - B[k][j]*d[i]; 
-				}
-				else
-				{
-					temp = L[k][j];
-					L[k][j] = L[k+1][j];
-					L[k+1][j] = temp;
-					temp = B[k][j];
-					B[k][j] = B[k+1][j];
-					B[k+1][j] = temp;
-				}
+			if (d[i] != 0)
+			{
+				B[i][j] = B[i][j] - B[k][j]*d[i]; 
+			}
+			else
+			{
+				temp = L[k][j];
+				L[k][j] = L[k+1][j];
+				L[k+1][j] = temp;
+				temp = B[k][j];
+				B[k][j] = B[k+1][j];
+				B[k+1][j] = temp;
 			}
 		}
-		maximum = 0;
 	}
 	//Find L(from I) and U(from B) matrix
-	//permute L and U to triangles
-	for(i=1; i<n+1; i++)
-	{
-		for(j=i; j<n+1; j++)
-		{
-			if(L[i][j] == 1.) 
-			{
-				col = j;
-				for(k=1; k<n+1; k++)
-				{
-					temp = B[k][i];
-					B[k][i] = B[k][col];
-					B[k][col] = temp;
-
-					temp = L[k][i];
-					L[k][i] = L[k][col];
-					L[k][col] = temp;
-				}
-			}
-		}
-		change_col[i] = col;
-	}
-	//permute to upper and lower triangles
 	//Forward subtitute
 	for(j=1; j<n+1; j++)
 	{
@@ -158,37 +92,8 @@ int main() {
 			c[k] = (z[k] + temp)/B[k][k];
 		}
 		for (i=1; i<n+1; i++) z[i] = 0;
+	}
 	//Backward subtitute	
-		for (i=1; i<n+1; i++) Binv[i][j] = c[i];
-	}
-	//permute
-	for (k=j-1; k>0; k--)
-	{
-		col = change_col[k];
-		if(col != 0)
-		{
-			for (i=1; i<n+1; i++)
-			{
-				temp = Binv[i][col];
-				Binv[i][col] = Binv[i][k];
-				Binv[i][k] = temp;
-			}
-		}
-	}
-	
-	for (k=j-1; k>0; k--)
-	{
-		row = change_row[k];
-		if(row != 0)
-		{
-			for (i=1; i<n+1; i++)
-			{
-				temp = Binv[row][i];
-				Binv[row][i] = Binv[k][i];
-				Binv[k][i] = temp;
-			}
-		}
-	}
 //Getting matrix B^-1	
 //Getting A^T*cd
 	for (j=1; j<n+1; j++)
