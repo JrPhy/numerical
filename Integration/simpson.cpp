@@ -12,7 +12,7 @@ int main(){
 		for(i=1;i<n;i++)
 		{
 			if(i%2==0) y1 += g[i];
-        	else y2 += g[i];
+        		else y2 += g[i];
 		}
 		sum = h*(g[0]+2*y1+4*y2+g[n])/3;
 	}
@@ -23,7 +23,7 @@ int main(){
 		for(i=1;i<n;i++)
 		{
 			if(i%3==0) 	y1 += g[i];
-        	else y2 += g[i];
+        		else y2 += g[i];
 		}
 		sum = 3*h*(g[0]+2*y1+3*y2+g[n])/8;
 	}
@@ -34,7 +34,7 @@ int main(){
 		for(i=1;i<n-3;i++)
 		{
 			if(i%2==0) y1 += g[i];
-        	else y2 += g[i];
+        		else y2 += g[i];
 		}
 		sum = h*(g[0]+2*y1+4*y2+g[n-3])/3 + 3*h*(g[n-3]+3*g[n-2]+3*g[n-1]+g[n])/8;
 	}
