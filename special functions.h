@@ -4,19 +4,19 @@
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
-/*Define besselj0(z) */
+//Define besselj0(z)
 double besselj0(double x)
 {
     return sin(x)/x;
 }
 
-/*Define besselj1(z) */
+//Define besselj1(z)
 double besselj1(double x)
 {
     return sin(x)/(x*x)-cos(x)/x;
 }
 
-/*Define besseljn(z) */
+//Define besseljn(z)
 double besseljn(int n, double x)
 {
     if (n==0) return besselj0(x);
@@ -25,25 +25,25 @@ double besseljn(int n, double x)
     else return (2*n-1)*besseljn(n-1,x)/x - besseljn(n-2,x);
 }
 
-/*Define derivative besseljn(z) by recurrence relation */
+//Define derivative besseljn(z) by recurrence relation 
 double dbesseljn(int n, double x)
 {
 	return - besseljn(n+1,x) + n*besseljn(n,x)/x;
 }
 
-/*Define nuemanny0(z) */
+//Define nuemanny0(z)
 double nuemanny0(double x)
 {
     return -cos(x)/x;
 }
 
-/*Define nuemanny1(z) */
+//Define nuemanny1(z)
 double nuemanny1(double x)
 {
     return -cos(x)/(x*x)-sin(x)/x;
 }
 
-/*Define nuemannyn(z) */
+//Define nuemannyn(z)
 double nuemannyn(int n, double x)
 {
     if (n==0) return nuemanny0(x);
@@ -52,13 +52,13 @@ double nuemannyn(int n, double x)
     else return ((2*n-1)*nuemannyn(n-1,x)/x-nuemannyn(n-2,x));
 }
 
-/*Define derivative nuemannyn(z) by recurrence relation */
+//Define derivative nuemannyn(z) by recurrence relation
 double dnuemannyn(int n, double x)
 {
 	return - nuemannyn(n+1,x) + n*nuemannyn(n,x)/x;
 }
 
-
+//Define factorial for normalize
 int factorial(int n)
 {
 	if(n == 0) return 1;
@@ -66,7 +66,7 @@ int factorial(int n)
 }
 
 /*Computes the associated Legendre polynomial P^m_n(x). 
-Here m and n are integers satisfying 0 <= m <= n,1 <= x <= 1.*/
+Here m and n are integers satisfying 0 <= m <= n,-1 <= x <= 1.*/
 double original_legendre(int m, int n, double theta)
 {
 	m = abs(m);
