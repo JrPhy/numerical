@@ -40,13 +40,17 @@ double simps(double y[], double x[], int n)
 }
 
 int main(){
+	//n is number of interval
+	//a is lower limit
+	//b is upper limit
 	for(int n=2; n<20; n++)
 	{
 		int i;
 		double *x, *y, h, a = 1.0, b = 4.0, z;
+		h = (double)(b-a)/n;
 		y = (double*)malloc((n+1)*sizeof(double));
 		x = (double*)malloc((n+1)*sizeof(double));
-		h = (double)(b-a)/n;
+		//n interval --> n+1 points
 		for(i=0;i<n+1;i++)
 		{
 			x[i] = a + i*h;
