@@ -23,7 +23,7 @@ double simps(double y[], double x[], int n)
 	{
 		for(i=1;i<n-1;i++)
 		{
-			if(i%3==0) 	y1 += y[i];
+			if(i%3==0) y1 += y[i];
         	else y2 += y[i];
 		}
 		sum = 3*h*(y[0]+2*y1+3*y2+y[n-1])/8;
