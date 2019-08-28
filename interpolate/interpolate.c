@@ -23,7 +23,6 @@ void oneD_linear_intp(float* raw_1D, float* finegrid_1D, int column, int intp_co
 		aa = (1-t)*raw_1D[x];
 		bb = t*raw_1D[x+1];
 		finegrid_1D[j] = aa+bb;
-		printf("%f\n",finegrid_1D[j]);
 	}
 }
 
@@ -78,9 +77,9 @@ double Langrange_intp(double *x, double *y, double intp_x, int n)
 {
 	int i, j;
 	double a = 1.0, b = 1.0 ,intp_y = 0.0;
-	for(i=0; i<n, i++)
+	for(i=0; i<n; i++)
 	{
-		for(j=0; j<n, j++)
+		for(j=0; j<n; j++)
 		{
 			if(i == j) continue;
 			a *= intp_x - x[j];
@@ -92,9 +91,9 @@ double Langrange_intp(double *x, double *y, double intp_x, int n)
 }
 
 int main(){
-	int i, j, row = 2, column = 4, intp_col = 2, intp_row = 0;
+	int i, j, row = 2, column = 4, intp_col = 2, intp_row = 4;
     // 2D-Example
-	/*float **raw_2D, **finegrid_2D;
+	float **raw_2D, **finegrid_2D;
     raw_2D = (float**)malloc(row*sizeof(float*));
     for(i=0; i<row; i++) raw_2D[i] = (float*)malloc(column*sizeof(float));
 	for(i=0; i<row; i++) for(j=0; j<column; j++) raw_2D[i][j] = rand()%1000;
@@ -122,10 +121,10 @@ int main(){
 	for(i=0; i<row; i++) free(raw_2D[i]);
 	free(raw_2D);
     for(i=0; i<(row-1)*(intp_row+1)+1; i++) free(finegrid_2D[i]);
-    free(finegrid_2D);*/
+    free(finegrid_2D);
     // 2D-Example
 	// 1D-Example
-    float *raw_1D, *finegrid_1D;
+    /*float *raw_1D, *finegrid_1D;
     raw_1D = (float*)malloc(column*sizeof(float));
     finegrid_1D = (float*)malloc(((column-1)*(intp_col+1)+1)*sizeof(float));
     for(j=0; j<column; j++) raw_1D[j] = rand()%1000;
@@ -141,9 +140,8 @@ int main(){
 		if(j == (column-1)*(intp_col+1)+1-1) printf("%.1f\n",finegrid_1D[j]);
 		else printf("%.1f	",finegrid_1D[j]);
 	}
-	printf("ok\n");
     free(raw_1D);
-    free(finegrid_1D);
+    free(finegrid_1D);*/
     // 1D-Example
     
     return 0;
