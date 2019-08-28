@@ -1,5 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h>
+#include <math.h> 
 double f(double x)
 {
 	return (x*x*x);
@@ -53,7 +54,8 @@ int main(){
 		//n interval --> n+1 points
 		for(i=0;i<n+1;i++)
 		{
-			x[i] = a + i*h;
+			x[i] = a + i*h;//For rectangular coordinate
+			//x[i] = (a + i*h)*M_PI/180;//For polar coordinate
 			z = x[i];
 			y[i] = f(z);
 			printf("%f\n",y[i]);
