@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 
-void oneD_linear_intp(float* raw_1D, float* finegrid_1D, int column, int intp_col)
+void onedLinearIntp(float* raw_1D, float* finegrid_1D, int column, int intp_col)
 {
 	intp_col +=1;
 	float t, aa, bb;
@@ -26,7 +26,7 @@ void oneD_linear_intp(float* raw_1D, float* finegrid_1D, int column, int intp_co
 	}
 }
 
-void twoD_linear_intp(float** raw_2D, float** finegrid_2D, int row, int column, int intp_col, int intp_row)
+void twodLinearIntp(float** raw_2D, float** finegrid_2D, int row, int column, int intp_col, int intp_row)
 {
 	if(row == 1||column == 1)
 	{
@@ -73,7 +73,7 @@ void twoD_linear_intp(float** raw_2D, float** finegrid_2D, int row, int column, 
 	}
 }
 
-double Langrange_intp(double *x, double *y, double intp_x, int n)
+double LangrangeIntp(double *x, double *y, double intp_x, int n)
 {
 	int i, j;
 	double a = 1.0, b = 1.0 ,intp_y = 0.0;
