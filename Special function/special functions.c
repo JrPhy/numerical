@@ -19,10 +19,10 @@ double Besseljn(int n, double x)
 		besselj0 = sin(x)/x;
 		besselj1 = sin(x)/(x*x)-cos(x)/x;
 	}
-    if (n == 0) return besselj0;
-    else if(n == 1) return besselj1;
-    /*using recurrence relation */
-    else 
+	if (n == 0) return besselj0;
+	else if(n == 1) return besselj1;
+	/*using recurrence relation */
+	else 
 	{
 		if(fabs(x)<1e-6) besseljn = 0.0;
 		else
@@ -51,10 +51,10 @@ double Neumannyn(int n, double x)
 	double Neumanny0, Neumanny1, Neumannyn;
 	Neumanny0 = (-cos(x)/x);
 	Neumanny1 = (-cos(x)/(x*x)-sin(x)/x);
-    if (n==0) return Neumanny0;
-    else if(n==1) return Neumanny1;
-    /*using recurrence relation */
-    else 
+	if (n==0) return Neumanny0;
+	else if(n==1) return Neumanny1;
+	/*using recurrence relation */
+	else 
 	{
 		for(i=2; i<n+1; i++) 
 		{
