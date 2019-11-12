@@ -150,18 +150,9 @@ double GeneLegendre(int m, int n, double theta)
 //Derivative legendre
 double DiffLegendre(int m, int n, double theta)
 {
-	double y, x;
-	if(n == 0)
-	{
-		y = 0;
-		return y;
-	}
-	x = cos(theta*M_PI/180);
-	if(fabs(x*x-1) <= 1.0e-10) 
-	{
-		y = 0;
-		return y;
-	}
+	double y = 0, x = cos(theta*M_PI/180);
+	if(n == 0) return y;
+	if(fabs(x*x-1) <= 1.0e-10) return y;
 	else return (-(n+1)*x*OriginalLegendre(m,n,theta)+(n-abs(m)+1)*OriginalLegendre(m,n+1,theta))/(x*x-1.0);
 }
 
