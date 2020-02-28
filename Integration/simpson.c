@@ -10,7 +10,9 @@ double simps(double y[], double x[], int n)
 {
 	int i;
 	double h = x[1] - x[0], y1 = 0, y2 = 0, sum = 0;
-	if((n-1)%2 == 0)
+	if (n == 1) sum = 0;
+	else if (n == 2) sum = 0.5*h*(y[0]+y[1]);
+	else if((n-1)%2 == 0)
 	{
 		for(i=1;i<n-1;i++)
 		{
