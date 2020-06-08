@@ -16,7 +16,7 @@ double simps(double y[], double x[], int n)
 	{
 		for(i=1;i<n-1;i++)
 		{
-			if(i%2==0) y1 += y[i];
+		if(i%2==0) y1 += y[i];
         	else y2 += y[i];
 		}
 		sum = h*(y[0]+2*y1+4*y2+y[n-1])/3;
@@ -25,7 +25,7 @@ double simps(double y[], double x[], int n)
 	{
 		for(i=1;i<n-1;i++)
 		{
-			if(i%3==0) y1 += y[i];
+		if(i%3==0) y1 += y[i];
         	else y2 += y[i];
 		}
 		sum = 3*h*(y[0]+2*y1+3*y2+y[n-1])/8;
@@ -34,7 +34,7 @@ double simps(double y[], double x[], int n)
 	{
 		for(i=1;i<n-4;i++)
 		{
-			if(i%2==0) y1 += y[i];
+		if(i%2==0) y1 += y[i];
         	else y2 += y[i];
 		}
 		sum = h*(y[0]+2*y1+4*y2+y[n-4])/3 + 3*h*(y[n-4]+3*y[n-3]+3*y[n-2]+y[n-1])/8;
