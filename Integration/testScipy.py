@@ -8,7 +8,7 @@ x = np.linspace(1.0, 4.0, 20)
 y = f(x)
 a = simps(y,x)
 
-x = np.linspace(1.0, 4.0, 19)
+x = np.linspace(1.0, 4.0, 3)
 y = f(x)
 b = simps(y,x)
 
