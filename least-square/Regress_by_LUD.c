@@ -8,20 +8,18 @@
 int main() {
 	int i, j, k, f;	//for loop
 	int m = 504, n = 15;	//for matrix
-	int row, col, change_row[n] = {0}, change_col[n] = {0}, max[n] = {0}, maximum; // for find max
-
-    //Loading files
+	int row, col, change_row[n], change_col[n];
+//Loading files
 	FILE *fp;
-	float x[m], y[m], cd[m], A[m][n]; //for data
-	double B[n][n] = {0}, Binv[n][n], L[n][n]; //inverse
-	double temp = 0, d[n] = {0}, c[n] = {0}, z[n] = {0}, y_regres[m]; // for linear system
-	fp = fopen("data.csv","r");
-		if (fp == NULL) printf("data.txt does not exist\n");
-		for (i=0; i<m; i++) fscanf(fp, "%f,%f,%f\n",&x[i] ,&y[i] ,&cd[i] );
+	float x[m], y[m], cd[m];
+	double L[n][n], A[m][n], B[n][n], Binv[n][n];
+	double temp, max[n], d[n], maximum = 0, c[n], z[n], y_regres[m], minimum = 999;
+	fp = fopen("data.txt","r");
+		if (fp == NULL) printf("data does not exist\n");
+		for (i=0; i<m; i++) fscanf(fp, "%f	%f	%f\n",&x[i] ,&y[i] ,&cd[i] );
 	fclose(fp);
-    //Loading files
-
-    //Getting matrix A
+//Loading files
+//Getting matrix A
 	for(i=0; i<m; i++)
 	{
 		A[i][0] = 1;
@@ -39,21 +37,35 @@ int main() {
 		A[i][12] = x[i]*x[i]*y[i]*y[i];
 		A[i][13] = x[i]*y[i]*y[i]*y[i];
 		A[i][14] = y[i]*y[i]*y[i]*y[i];
-		if(i < n) L[i][i] = 1.;
 	}
-
-    //Getting matrix B = A^T*A
+//Getting matrix A
+//Getting matrix B = A^T*A
+	for(j=0; j<n; j++) for(k=0; k<n; k++) B[j][k] = 0;
 	for(j=0; j<n; j++) for(i=0; i<m; i++) for(k=0; k<n; k++) B[j][k] = B[j][k] + A[i][j]*A[i][k];
-    //Getting matrix B = A^T*A
-
-	//Getting matrix B^-1
-
-	//find the maximum value before (k-1)th times elimination of whole matrix
-	for (k=0; k<n-1; k++)
+//Getting matrix B = A^T*A
+//Getting matrix B^-1
+	for(i=0; i<n; i++)
 	{
-		for (f=k; f<n; f++)
+		max[i] = 0.;
+		d[i] = 0.;
+		L[i][i] = 1.;
+		for (j=i+1; j<n; j++)
 		{
-			for (j=0; j<n; j++)
+			L[i][j] = 0.;
+			L[j][i] = 0.;
+		}
+		change_row[i] = 0;
+		change_col[i] = 0;
+		c[i] = 0.;
+		z[i] = 0.;
+	}
+    //find the maximum value before (k-1)th times elimination of whole matrix
+	for(k=0; k<n-1; k++)
+	{
+		for(f=k; f<n; f++)
+		{
+			max[f] = 0;
+			for(j=0; j<n; j++)
 			{
 				if(fabs(B[f][j]) > fabs(max[f])) max[f] = B[f][j];
 				if(fabs(B[f][j]) > fabs(maximum))
@@ -65,11 +77,10 @@ int main() {
 			}
 		}
 	//find the maximum value before (k-1)th times elimination of whole matrix
-
 	//Choosing the pivot
 		if(fabs(max[k]) < fabs(B[row][col]))
 		{
-			for (j=0; j<n; j++)
+			for(j=0; j<n; j++)
 			{
 				temp = B[row][j];
 				B[row][j] = B[k][j];
@@ -82,16 +93,18 @@ int main() {
 				change_row[k] = row;
 			}
 		}
-	//Choosing the pivot
-
-	//Find L (from I) and U (from B) matrix
-		for (i=k+1; i<n; i++)
+        //Choosing the pivot
+        //Find L and U matrix
+		for(i=k+1; i<n; i++)
 		{
 			d[i] = B[i][col]/maximum;
 			L[i][col] = d[i];
-			for (j=0; j<n; j++)
+			for(j=0; j<n; j++)
 			{
-				if (d[i] != 0) B[i][j] = B[i][j] - B[k][j]*d[i];
+				if(d[i] != 0)
+				{
+					B[i][j] = B[i][j] - B[k][j]*d[i];
+				}
 				else
 				{
 					temp = L[k][j];
@@ -103,20 +116,23 @@ int main() {
 				}
 			}
 		}
-		for (i=k+1; i<n; i++)
+		for(i=k+1; i<n; i++)
 		{
-			if(B[i][col] != 0) B[i][col] = B[i][col] - B[k][col]*B[i][col]/maximum;
+			if(B[i][col] != 0)
+			{
+				B[i][col] = B[i][col] - B[k][col]*B[i][col]/maximum;
+			}
 		}
 		maximum = 0;
 	}
-	//Find L (from I) and U (from B) matrix
+	//Find L and U matrix
 
 	//permute L and U to triangles
 	for(i=0; i<n; i++)
 	{
 		for(j=i; j<n; j++)
 		{
-			if(L[i][j] == 1.)
+			if(fabs(L[i][j]-1.) < 1e-6 )
 			{
 				col = j;
 				for(k=0; k<n; k++)
@@ -134,35 +150,47 @@ int main() {
 		change_col[i] = col;
 	}
 	//permute to upper and lower triangles
-
-	//Forward substitute
+	//Forward subtitute
 	for(j=0; j<n; j++)
 	{
 		z[j] = 1;
 		for(k=j+1; k<n; k++)
 		{
 			temp = 0.;
-			for (i=0; i<k; i++) temp = temp - L[k][i]*z[i];
+			for (i=0; i<k; i++)
+			{
+				temp = temp - L[k][i]*z[i];
+			}
 			z[k] = temp;
 		}
-	//Forward substitute
-
-	//Backward substitute
+	//Forward subtitute
+	//Backward subtitute
 		for (i=0; i<n; i++) max[i] = 0;
 		c[n] = z[n]/B[n][n];
-		for(k=n-1; k>-1; k--)
+		for(k=n-1; k>=0; k--)
 		{
 			temp = 0.;
-			for (i=k+1; i<n; i++) temp = temp - B[k][i]*c[i];
+			for (i=k+1; i<n; i++)
+			{
+				temp = temp - B[k][i]*c[i];
+			}
 			c[k] = (z[k] + temp)/B[k][k];
 		}
 		for (i=0; i<n; i++) z[i] = 0;
-	//Backward substitute
-	for (i=0; i<n; i++) Binv[i][j] = c[i];
+	//Backward subtitute
+		for (i=0; i<n; i++) Binv[i][j] = c[i];
 	}
-
+    for (i=0; i<n; i++)
+    {
+        for (j=0; j<n; j++)
+        {
+            if(j == n-1) printf("%.3e\n", Binv[i][j]);
+            else printf("%.3e  ", Binv[i][j]);
+        }
+    }
+    printf("\n\n");
 	//permute
-	for (k=j-1; k>-1; k--)
+	for (k=j-1; k>=0; k--)
 	{
 		col = change_col[k];
 		if(col != 0)
@@ -176,7 +204,7 @@ int main() {
 		}
 	}
 
-	for (k=j-1; k>-1; k--)
+	for (k=j-1; k>=0; k--)
 	{
 		row = change_row[k];
 		if(row != 0)
@@ -189,9 +217,8 @@ int main() {
 			}
 		}
 	}
-    //Getting matrix B^-1
 
-    //Getting A^T*cd
+//Getting A^T*cd
 	for (j=0; j<n; j++)
 	{
 		c[j] = 0;
@@ -200,12 +227,17 @@ int main() {
 	for (i=0; i<m; i++) y_regres[i] = 0;
 
 	for (j=0; j<n; j++) for (i=0; i<m; i++) c[j] = c[j] + A[i][j]*cd[i];
-    //Getting A^T*cd
-    //Getting B^-1*A^T*cd
+//Getting A^T*cd
+//Getting B^-1*A^T*cd
 	for (j=0; j<n; j++) for (i=0; i<n; i++) z[j] = z[j] + Binv[j][i]*c[i];
-	for (j=0; j<n; j++) printf("%.16e\n", z[j]);
-    //Getting A^T*y
-    //Getting regressed y
-	for (i=0; i<m; i++) for (j=0; j<n; j++) y_regres[i] = y_regres[i] + A[i][j]*z[j];
+
+
+
+	fp = fopen("coefficients.txt","w");
+    for (j=0; j<n; j++) fprintf(fp, "%.16e\n", z[j]);
+    fclose(fp);
+//Getting A^T*cd
+//Getting y_regres
+	for(i=0; i<m; i++) for (j=0; j<n; j++) y_regres[i] = y_regres[i] + A[i][j]*z[j];
 return 0;
 }
