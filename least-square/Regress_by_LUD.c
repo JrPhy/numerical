@@ -5,6 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void swap(double* a, double* b)
+{
+    double temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 {
     int i, j, k, f;	//for loop
@@ -49,13 +56,8 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 		{
 			for(j=0; j<n; j++)
 			{
-				temp = B[row][j];
-				B[row][j] = B[k][j];
-				B[k][j] = temp;
-
-				temp = L[row][j];
-				L[row][j] = L[k][j];
-				L[k][j] = temp;
+			    swap(&B[row][j], &B[k][j]);
+				swap(&L[row][j], &L[k][j]);
 
 				change_row[k] = row;
 			}
@@ -74,13 +76,8 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 				}
 				else
 				{
-					temp = L[k][j];
-					L[k][j] = L[k+1][j];
-					L[k+1][j] = temp;
-					
-					temp = B[k][j];
-					B[k][j] = B[k+1][j];
-					B[k+1][j] = temp;
+				    swap(&L[k][j], &L[k+1][j]);
+					swap(&B[k][j], &B[k+1][j]);
 				}
 			}
 		}
@@ -105,17 +102,20 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 				col = j;
 				for(k=0; k<n; k++)
 				{
-					temp = B[k][i];
-					B[k][i] = B[k][col];
-					B[k][col] = temp;
-
-					temp = L[k][i];
-					L[k][i] = L[k][col];
-					L[k][col] = temp;
+				    swap(&B[k][i], &B[k][col]);
+					swap(&L[k][i], &L[k][col]);
 				}
 			}
 		}
 		change_col[i] = col;
+	}
+	for(i=0; i<n; i++)
+	{
+		for(j=0; j<n; j++)
+		{
+		    if(j == n-1) printf("%.3e\n", B[i][j]);
+		    else printf("%.3e  ", B[i][j]);
+		}
 	}
 	//permute to upper and lower triangles
 	//Forward subtitute
@@ -156,9 +156,7 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 		{
 			for (i=0; i<n; i++)
 			{
-				temp = Binv[i][col];
-				Binv[i][col] = Binv[i][k];
-				Binv[i][k] = temp;
+			    swap(&Binv[i][col], &Binv[i][k]);
 			}
 		}
 	}
@@ -248,5 +246,5 @@ int main() {
 //Getting A^T*cd
 //Getting y_regres
 	for(i=0; i<m; i++) for (j=0; j<n; j++) y_regres[i] = y_regres[i] + A[i][j]*z[j];
-return 0;
+	return 0;
 }
