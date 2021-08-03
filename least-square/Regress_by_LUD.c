@@ -5,46 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-	int i, j, k, f;	//for loop
-	int m = 504, n = 15;	//for matrix
-	int row, col, change_row[n], change_col[n];
-//Loading files
-	FILE *fp;
-	float x[m], y[m], cd[m];
-	double L[n][n], A[m][n], B[n][n], Binv[n][n];
-	double temp, max[n], d[n], maximum = 0, c[n], z[n], y_regres[m], minimum = 999;
-	fp = fopen("data.txt","r");
-		if (fp == NULL) printf("data does not exist\n");
-		for (i=0; i<m; i++) fscanf(fp, "%f	%f	%f\n",&x[i] ,&y[i] ,&cd[i] );
-	fclose(fp);
-//Loading files
-//Getting matrix A
-	for(i=0; i<m; i++)
-	{
-		A[i][0] = 1;
-		A[i][1] = x[i];
-		A[i][2] = y[i];
-		A[i][3] = x[i]*x[i];
-		A[i][4] = x[i]*y[i];
-		A[i][5] = y[i]*y[i];
-		A[i][6] = x[i]*x[i]*x[i];
-		A[i][7] = x[i]*x[i]*y[i];
-		A[i][8] = x[i]*y[i]*y[i];
-		A[i][9] = y[i]*y[i]*y[i];
-		A[i][10] = x[i]*x[i]*x[i]*x[i];
-		A[i][11] = x[i]*x[i]*x[i]*y[i];
-		A[i][12] = x[i]*x[i]*y[i]*y[i];
-		A[i][13] = x[i]*y[i]*y[i]*y[i];
-		A[i][14] = y[i]*y[i]*y[i]*y[i];
-	}
-//Getting matrix A
-//Getting matrix B = A^T*A
-	for(j=0; j<n; j++) for(k=0; k<n; k++) B[j][k] = 0;
-	for(j=0; j<n; j++) for(i=0; i<m; i++) for(k=0; k<n; k++) B[j][k] = B[j][k] + A[i][j]*A[i][k];
-//Getting matrix B = A^T*A
-//Getting matrix B^-1
-	for(i=0; i<n; i++)
+void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
+{
+    int i, j, k, f;	//for loop
+    int row, col, change_row[n], change_col[n];
+    double temp, L[n][n], max[n], d[n], maximum = 0, c[n], z[n], y_regres[m], minimum = 999;
+
+    for(i=0; i<n; i++)
 	{
 		max[i] = 0.;
 		d[i] = 0.;
@@ -110,6 +77,7 @@ int main() {
 					temp = L[k][j];
 					L[k][j] = L[k+1][j];
 					L[k+1][j] = temp;
+					
 					temp = B[k][j];
 					B[k][j] = B[k+1][j];
 					B[k+1][j] = temp;
@@ -180,15 +148,6 @@ int main() {
 	//Backward subtitute
 		for (i=0; i<n; i++) Binv[i][j] = c[i];
 	}
-    for (i=0; i<n; i++)
-    {
-        for (j=0; j<n; j++)
-        {
-            if(j == n-1) printf("%.3e\n", Binv[i][j]);
-            else printf("%.3e  ", Binv[i][j]);
-        }
-    }
-    printf("\n\n");
 	//permute
 	for (k=j-1; k>=0; k--)
 	{
@@ -217,6 +176,56 @@ int main() {
 			}
 		}
 	}
+}
+
+int main() {
+	int i, j, k, f;	//for loop
+	int m = 504, n = 15;	//for matrix
+	int row, col, change_row[n], change_col[n];
+//Loading files
+	FILE *fp;
+	float x[m], y[m], cd[m];
+	double A[m][n], B[n][n], Binv[n][n];
+	double maximum = 0, c[n], z[n], y_regres[m], minimum = 999;
+	fp = fopen("data.txt","r");
+		if (fp == NULL) printf("data does not exist\n");
+		for (i=0; i<m; i++) fscanf(fp, "%f	%f	%f\n",&x[i] ,&y[i] ,&cd[i] );
+	fclose(fp);
+//Loading files
+//Getting matrix A
+	for(i=0; i<m; i++)
+	{
+		A[i][0] = 1;
+		A[i][1] = x[i];
+		A[i][2] = y[i];
+		A[i][3] = x[i]*x[i];
+		A[i][4] = x[i]*y[i];
+		A[i][5] = y[i]*y[i];
+		A[i][6] = x[i]*x[i]*x[i];
+		A[i][7] = x[i]*x[i]*y[i];
+		A[i][8] = x[i]*y[i]*y[i];
+		A[i][9] = y[i]*y[i]*y[i];
+		A[i][10] = x[i]*x[i]*x[i]*x[i];
+		A[i][11] = x[i]*x[i]*x[i]*y[i];
+		A[i][12] = x[i]*x[i]*y[i]*y[i];
+		A[i][13] = x[i]*y[i]*y[i]*y[i];
+		A[i][14] = y[i]*y[i]*y[i]*y[i];
+	}
+//Getting matrix A
+//Getting matrix B = A^T*A
+	for(j=0; j<n; j++)
+    {
+        for(k=0; k<n; k++)
+        {
+            B[j][k] = 0.;
+            Binv[j][k] = 0.;
+        }
+    }
+	for(j=0; j<n; j++) for(i=0; i<m; i++) for(k=0; k<n; k++) B[j][k] = B[j][k] + A[i][j]*A[i][k];
+//Getting matrix B = A^T*A
+//Getting matrix B^-1
+    inverseByPLUD(m, n, A, B, Binv);
+
 
 //Getting A^T*cd
 	for (j=0; j<n; j++)
