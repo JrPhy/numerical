@@ -56,7 +56,7 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 		{
 			for(j=0; j<n; j++)
 			{
-			    swap(&B[row][j], &B[k][j]);
+				swap(&B[row][j], &B[k][j]);
 				swap(&L[row][j], &L[k][j]);
 
 				change_row[k] = row;
@@ -76,7 +76,7 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 				}
 				else
 				{
-				    swap(&L[k][j], &L[k+1][j]);
+					swap(&L[k][j], &L[k+1][j]);
 					swap(&B[k][j], &B[k+1][j]);
 				}
 			}
@@ -102,13 +102,14 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 				col = j;
 				for(k=0; k<n; k++)
 				{
-				    swap(&B[k][i], &B[k][col]);
+					swap(&B[k][i], &B[k][col]);
 					swap(&L[k][i], &L[k][col]);
 				}
 			}
 		}
 		change_col[i] = col;
 	}
+	/*
 	for(i=0; i<n; i++)
 	{
 		for(j=0; j<n; j++)
@@ -117,6 +118,7 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 		    else printf("%.3e  ", B[i][j]);
 		}
 	}
+	*/
 	//permute to upper and lower triangles
 	//Forward subtitute
 	for(j=0; j<n; j++)
@@ -168,9 +170,7 @@ void inverseByPLUD(int m, int n, double A[][n], double B[][n], double Binv[][n])
 		{
 			for (i=0; i<n; i++)
 			{
-				temp = Binv[row][i];
-				Binv[row][i] = Binv[k][i];
-				Binv[k][i] = temp;
+				swap(&Binv[row][i], &Binv[k][i]);
 			}
 		}
 	}
@@ -212,37 +212,28 @@ int main() {
 //Getting matrix A
 //Getting matrix B = A^T*A
 	for(j=0; j<n; j++)
-    {
-        for(k=0; k<n; k++)
-        {
-            B[j][k] = 0.;
-            Binv[j][k] = 0.;
-        }
-    }
-	for(j=0; j<n; j++) for(i=0; i<m; i++) for(k=0; k<n; k++) B[j][k] = B[j][k] + A[i][j]*A[i][k];
-//Getting matrix B = A^T*A
-//Getting matrix B^-1
-    inverseByPLUD(m, n, A, B, Binv);
-
-
-//Getting A^T*cd
-	for (j=0; j<n; j++)
 	{
+		for(k=0; k<n; k++)
+		{
+		    B[j][k] = 0.;
+		    Binv[j][k] = 0.;
+		}
 		c[j] = 0;
 		z[j] = 0;
 	}
+	for(j=0; j<n; j++) for(i=0; i<m; i++) for(k=0; k<n; k++) B[j][k] = B[j][k] + A[i][j]*A[i][k];
+//Getting matrix B = A^T*A
+//Getting matrix B^-1
+	inverseByPLUD(m, n, A, B, Binv);
+//Getting A^T*cd
 	for (i=0; i<m; i++) y_regres[i] = 0;
-
 	for (j=0; j<n; j++) for (i=0; i<m; i++) c[j] = c[j] + A[i][j]*cd[i];
 //Getting A^T*cd
 //Getting B^-1*A^T*cd
 	for (j=0; j<n; j++) for (i=0; i<n; i++) z[j] = z[j] + Binv[j][i]*c[i];
-
-
-
 	fp = fopen("coefficients.txt","w");
-    for (j=0; j<n; j++) fprintf(fp, "%.16e\n", z[j]);
-    fclose(fp);
+	for (j=0; j<n; j++) fprintf(fp, "%.16e\n", z[j]);
+	fclose(fp);
 //Getting A^T*cd
 //Getting y_regres
 	for(i=0; i<m; i++) for (j=0; j<n; j++) y_regres[i] = y_regres[i] + A[i][j]*z[j];
