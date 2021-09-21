@@ -7,3 +7,6 @@ so I just provide simpson's code. but introduce other mathods for integration.
        For even, it uses trapezoid method, so the error is higher.
        
 Try the script in testScipy
+
+The normal Simpson's method implement with equally spaced dx, as dx is not equally spaced, there is complicate version of Simpson's method by taylor expansion.\
+https://www.researchgate.net/publication/317339672_Numerical_Integration_Schemes_for_Unequal_Data_Spacing
