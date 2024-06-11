@@ -29,3 +29,18 @@ E(r,θ,φ) = h<sub>n</sub>(r) *P*<sup>m</sup><sub>n</sub> (cosθ) e<sup>+/- imφ
 ![image](https://github.com/JrPhy/numerical/blob/master/Special%20function/pic/sperical_harmonic.jpg)
 
 ## 2. 特殊函數的數值解
+上述所用到的特殊函數有許多的關係式，有些關係是在數值上求解比較穩定，所以需要根據其數值穩定性選擇
+
+#### 1. Bessel and Neumann
+參考[文獻資料](https://s3.amazonaws.com/nrbook.com/AandS-a4-v1-2.pdf)，在 9.1.27 有四個方程式，可以利用費氏數列 divide and conquer 法\
+*f*<sub>n+1</sub> (z) = (2n/z)*f*<sub>n</sub> (z) - *f*<sub>n</sub> (z)\
+
+#### 2. Associated Legendre
+其中有兩個指標 m, n，一樣可以從最簡單的 m = 0, n = 0 去建構，先看 m = 1 = n 的形式\
+
+然後計算 m ≤ n 的形式
+(n-m)*P*<sup>m</sup><sub>n</sub> (x) = x(2n-1)*P*<sup>m</sup><sub>n-1</sub> (x) + (n+m-1)*P*<sup>m</sup><sub>n-2</sub> (x)\
+整理一下可得
+*P*<sup>m</sup><sub>n</sub> (x) = x((2n-1)/(n-m))*P*<sup>m</sup><sub>n-1</sub> (x) - ((n+m-1)/(n-m))*P*<sup>m</sup><sub>n-2</sub> (x)\
+如此一來就得到 0 ≤ m 的形式。當 m 為負數時也可由下方關係得到
+*P*<sup>-m</sup><sub>n</sub> (x) = (-1)<sup>m</sup>((n-m)!/(n+m)!)*P*<sup>m</sup><sub>n-1</sub> (x)
