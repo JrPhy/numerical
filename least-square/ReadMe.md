@@ -48,8 +48,12 @@ X<sup>T</sup> = [b a]\
 將 y<sub>i</sub> = bx<sub>i</sub> + a 帶入誤差定義中\
 E = sum(y<sub>i</sub> - y)<sup>2</sup> (i = 1, 2, ..., n) = sum(bx<sub>i</sub> + a - y)<sup>2</sup> (i = 1, 2, ..., n)\
 為一個開口向上的拋物線，所以可知一階微分為 0 的點為最小值，所以分別對 b, a 微分得下方關係式(跟著箭頭方向)\
-![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/solve_ab.jpg)
+![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/solve_ab.jpg)\
+對一個 m 階 n 維的多項式而言也可以有類似的作法，例如\
+deg(f) = 3, f(x, y) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>y + a<sub>3</sub>x<sup>2</sup> + a<sub>4</sub>xy + a<sub>5</sub>y<sup>2</sup> + ... a<sub>9</sub>y<sup>3</sup>\
+就去把 a<sub>0</sub> ~ a<sub>9</sub> 係數都解出來即可。
 
+## 3. 數值方法
 https://www.youtube.com/watch?v=Sco6zCBtP3I
 
 Here is the demo video
