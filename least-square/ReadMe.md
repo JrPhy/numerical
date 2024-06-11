@@ -78,7 +78,7 @@ LU 分解除了計算量大與一定要方陣外，還有一個問題就是有�
 A = QR = Q<sub>1</sub>R<sub>1</sub> + Q<sub>2</sub>R<sub>2</sub> = Q<sub>1</sub>R<sub>1</sub>\
 所以不需要將 QR 都算出來，只需算 Q<sub>1</sub>R<sub>1</sub> 即可。最後帶入\
 (A<sup>T</sup>A)x<sub>0</sub> = A<sup>T</sup>y --> R<sub>1</sub>x = Q<sub>1</sub><sup>T</sup>y\
-再去解聯立方程即可。其中 Q 矩陣的找法有以下三種，分別對應不同情況\
+再去解聯立方程即可。其中 Q 矩陣的找法有以下三種，分別對應不同情況
 1. Modified Gram-Schmidt --> 最快但也不穩定，適用 m >> n
 2. Householder --> dense matrix
 3. Givens --> sparse matrix
@@ -86,6 +86,11 @@ A = QR = Q<sub>1</sub>R<sub>1</sub> + Q<sub>2</sub>R<sub>2</sub> = Q<sub>1</sub>
 在 m > n 的情況下 QR 分解是一個比較好的算法，若是 m < n，則需要用到 SV 分解
 
 #### 3. SV 分解
+SVD 通常是在線性代數的最後面，因為證明與計算都非常的難，但是也非常的強大，另一個則是矩陣的 Jordan form。將矩陣 A 拆解成 UΣV<sup>T</sup>，需要算特徵值與特徵向量，在數值計算也非常耗時，所以如果可以用 QR 分解或 LU 分解就用那兩個。SVD 主要是在解 non-full rank 的線性方程，也就是變數數量 > 方程式數量，此時最小方差的解就不會是唯一的，但使用 SVD 還是可以得到解，其稱為 best-approximation。計算步驟如下
+1. 算出 B = AA<sup>T</sup>
+2. 算出 B 的特徵值 Σ 與對應的特徵正規向量 V 並得到 U
+3. Ax = y --> ΣV<sup>T</sup>x = U<sup>T</sup>y --> 解聯立
+
 https://www.youtube.com/watch?v=Sco6zCBtP3I
 
 Here is the demo video
