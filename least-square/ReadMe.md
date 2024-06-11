@@ -42,7 +42,16 @@ X<sup>T</sup> = [b a]\
 此外若 A 為 full rank，則 x<sub>0</sub> = (A<sup>T</sup>A)<sup>-1</sup>A<sup>T</sup>y
 #### 證明(代數法)
 < Ax, s > = < x, AA<sup>T</sup>> = < x, AA<sup>T</sup>(Ax<sub>0</sub> - y)> = 0 --> 對 x ≠ 0, (A<sup>T</sup>A)x<sub>0</sub> = A<sup>T</sup>y --> x<sub>0</sub> = (A<sup>T</sup>A)<sup>-1</sup>A<sup>T</sup>y
+#### 證明(幾何法)
+由向量可知 s = Ax<sub>0</sub> - y，此時可找到一條 s 垂直於 Ax<sub>0</sub>，即存在最小值 ||s||
+![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/least_square.jpg)
+#### 證明為最小值
+將 y<sub>i</sub> = bx<sub>i</sub> + a 帶入誤差定義中\
+E = sum(y<sub>i</sub> - y)<sup>2</sup> (i=1~n) = sum(bx<sub>i</sub> + a - y)<sup>2</sup> (i=1~n)\
+為一個開口向上的拋物線，所以可知一階微分為 0 的點為最小值，所以分別對 b, a 微分得下方關係式(跟著箭頭方向)\
+![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/solve_ab.jpg)
 
 https://www.youtube.com/watch?v=Sco6zCBtP3I
 
 Here is the demo video
+
