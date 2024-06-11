@@ -25,13 +25,13 @@ m 為第幾階，表示為幾次多項式，n 為第幾個根，可展開後看�
 ![image](https://github.com/JrPhy/numerical/blob/master/Special%20function/pic/R_sol.jpg)\
 得到 Spherical Hankle's function h<sub>n</sub>(r)解
 
-h<sub>n</sub>(r) = j<sub>n</sub>(r) +/- iy<sub>n</sub>(r)
+h<sub>n</sub>(r) = j<sub>n</sub>(r) ± iy<sub>n</sub>(r)
 
 其中 j 為 Spherical Bessel's function，y 為 Spherical Neumann's function，大寫的為普通的 Hankle/Bessel/Neumann
 ![image](https://github.com/JrPhy/numerical/blob/master/Special%20function/pic/Bessel_sol.jpg)\
 最後帶回去就可以得到電場的形式為
 
-E(r,θ,φ) = h<sub>n</sub>(r) *P*<sup>m</sup><sub>n</sub> (cosθ) e<sup>+/- imφ</sup> = *Y*<sup>m</sup><sub>n</sub> (cosθ)
+E(r,θ,φ) = h<sub>n</sub>(r) *P*<sup>m</sup><sub>n</sub> (cosθ) e<sup>±imφ</sup> = *Y*<sup>m</sup><sub>n</sub> (cosθ)
 
 其中 Θ(θ)Φ(φ) 稱為 [Spherical Harmonic function](https://en.wikipedia.org/wiki/Spherical_harmonics)，也就是在角度方向上的解，其歸一化形式為\
 ![image](https://github.com/JrPhy/numerical/blob/master/Special%20function/pic/sperical_harmonic.jpg)
