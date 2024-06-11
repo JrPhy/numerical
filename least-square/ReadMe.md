@@ -62,7 +62,7 @@ x<sub>0</sub> = (A<sup>T</sup>A)<sup>-1</sup>A<sup>T</sup>y\
 LU 分解式將方陣利用高斯消去法，將一**方陣**分解為一個上三角矩陣 U 與一個下三角矩陣 L 的乘積
 1. 得到 B = AA<sup>T</sup>，這步求解就會很久
 2. LU = B
-3. x<sub>0</sub> = A<sup>-1</sup>y --> L(Ux) = L(c) = b = A<sup>T</sup>y
+3. Bx<sub>0</sub> = A<sup>T</sup>y --> L(Ux) = L(c) = b = A<sup>T</sup>y
 4. 解聯立得到解\
 
 LU 分解除了計算量大與一定要方陣外，還有一個問題就是有病態條件的可能，例如\
@@ -74,6 +74,18 @@ LU 分解除了計算量大與一定要方陣外，還有一個問題就是有�
 此為矩陣的**病態條件 (ill-conditioned)**，所以有人想出了 QR 分解來避免這問題。
 
 #### 2. QR 分解
+直接將矩陣 A ∈ M<sub>m×n</sub>(F) 分解成 QR 兩個矩陣，就是將 A 矩陣用正規化的單位向量 q<sub>i</sub> 去表示 QQ<sup>T</sup> = Q<sup>T</sup>Q = I，且 Q ∈ M<sub>m×m</sub>(F)，而 R ∈ M<sub>m×n</sub>(F) 則為上三角矩陣。若 A 不為方陣且 m ≧ n，則可將 R 寫成 R = [R<sub>1</sub> R<sub>2</sub>]<sup>T</sup>，而 R<sub>2</sub> = 0 ∈ M<sub>(m-n)×n</sub>(F)，所以可以把 Q = [Q<sub>1</sub> Q<sub>2</sub>]，如此一來 \
+A = QR = Q<sub>1</sub>R<sub>1</sub> + Q<sub>2</sub>R<sub>2</sub> = Q<sub>1</sub>R<sub>1</sub>\
+所以不需要將 QR 都算出來，只需算 Q<sub>1</sub>R<sub>1</sub> 即可。最後帶入\
+(A<sup>T</sup>A)x<sub>0</sub> = A<sup>T</sup>y --> R<sub>1</sub>x = Q<sub>1</sub><sup>T</sup>y\
+再去解聯立方程即可。其中 Q 矩陣的找法有以下三種，分別對應不同情況\
+1. Modified Gram-Schmidt --> 最快但也不穩定，適用 m >> n
+2. Householder --> dense matrix
+3. Givens --> sparse matrix
+
+在 m > n 的情況下 QR 分解是一個比較好的算法，若是 m < n，則需要用到 SV 分解
+
+#### 3. SV 分解
 https://www.youtube.com/watch?v=Sco6zCBtP3I
 
 Here is the demo video
