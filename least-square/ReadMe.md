@@ -26,8 +26,7 @@ X<sup>T</sup> = [b a]\
 其中 Y 原本為 n row 1 column 的向量，寫作 Y ∈ M<sub>n×1</sub>
 (F )，為方便書寫轉置後為 1 row n column。注意到 (x<sub>i</sub>, y<sub>i</sub>) 是已知，(b, a) 才是未知，所以在這邊的 X 為 [b a]。因為有兩個未知數，所以最少要有兩個不重複的點才能有為一解。
 #### Lemma 1
-令 A ∈ M<sub>m×n</sub>(F), x ∈ F<sup>n</sup>, y ∈ F<sup>m</sup>，且 m ≧ n，則\
-<Ax, y><sub>m</sub> = <x, ATy><sub>n</sub>, < , >: 為內積符號
+令 A ∈ M<sub>m×n</sub>(F), x ∈ F<sup>n</sup>, y ∈ F<sup>m</sup>，且 m ≧ n，則<Ax, y><sub>m</sub> = <x, ATy><sub>n</sub>, < , >: 為內積符號
 #### Lemma 2
 令 A ∈ M<sub>m×n</sub>(F), rank(A) = rank(A<sup>T</sup>A)
 #### Corollary
@@ -47,7 +46,7 @@ X<sup>T</sup> = [b a]\
 ![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/least_square.jpg)
 #### 證明為最小值
 將 y<sub>i</sub> = bx<sub>i</sub> + a 帶入誤差定義中\
-E = sum(y<sub>i</sub> - y)<sup>2</sup> (i=1~n) = sum(bx<sub>i</sub> + a - y)<sup>2</sup> (i=1~n)\
+E = sum(y<sub>i</sub> - y)<sup>2</sup> (i = 1, 2, ..., n) = sum(bx<sub>i</sub> + a - y)<sup>2</sup> (i = 1, 2, ..., n)\
 為一個開口向上的拋物線，所以可知一階微分為 0 的點為最小值，所以分別對 b, a 微分得下方關係式(跟著箭頭方向)\
 ![image](https://github.com/JrPhy/numerical/blob/master/least-square/pic/solve_ab.jpg)
 
