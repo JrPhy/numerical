@@ -54,6 +54,26 @@ deg(f) = 3, f(x, y) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>y + a<sub>3<
 就去把 a<sub>0</sub> ~ a<sub>9</sub> 係數都解出來即可。
 
 ## 3. 數值方法
+求解：x<sub>0</sub> = A<sup>T</sup>y, A ∈ M<sub>m×n</sub>(F)
+x<sub>0</sub> = (A<sup>T</sup>A)<sup>-1</sup>A<sup>T</sup>y\
+若要得到最小平方解，就需要用到上述式子，所以需要寫成矩陣的形式，這樣也可以直接給電腦算。給電腦算的例子通常矩陣都很大，而矩陣乘法最快也就是 O(n<sup>2.7~</sup>) 左右，當然也可以直接求解，以下介紹 LU, QR 與 SV 三種分解的殊值方法
+
+#### 1. LU 分解
+LU 分解式將方陣利用高斯消去法，將一**方陣**分解為一個上三角矩陣 U 與一個下三角矩陣 L 的乘積
+1. 得到 B = AA<sup>T</sup>，這步求解就會很久
+2. LU = B
+3. x<sub>0</sub> = A<sup>-1</sup>y --> L(Ux) = L(c) = b = A<sup>T</sup>y
+4. 解聯立得到解\
+
+LU 分解除了計算量大與一定要方陣外，還有一個問題就是有病態條件的可能，例如\
+400a-201b = 200  -->  a = -100\
+-800a+401b = -200  -->  b = -200\
+但若為浮點數的計算，則誤差有可能會累加成下方式子\
+401a-201b = 200  -->  a = 40000\
+-800a+401b = -200  -->  b = 79800\
+此為矩陣的**病態條件 (ill-conditioned)**，所以有人想出了 QR 分解來避免這問題。
+
+#### 2. QR 分解
 https://www.youtube.com/watch?v=Sco6zCBtP3I
 
 Here is the demo video
