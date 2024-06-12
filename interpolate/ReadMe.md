@@ -12,8 +12,8 @@ a-------------c---------------------b
 ----- d - t ------------ t ----------
 ```
 由距離比例可知\
-t/(d-t) = (b-c)/(c-a) --> c = (d-t)b + ta。若 d = 1, t = 0.5，則 c = 0.5a + 0.5b\
-而在程式中只存資料點，做內插之後資料點會變多，所以要另外新開一個陣列。假設原本有 m 的資料點，要在每兩個點中間插一個值，也就是用中點內插，新陣列長度為\
+$\dfrac{t}{d-t} = \dfrac{b-c}{c-a}$ --> c = (d-t)b + ta。\
+若 d = 1, t = 0.5，則 c = 0.5a + 0.5b。而在程式中只存資料點，做內插之後資料點會變多，所以要另外新開一個陣列。假設原本有 m 的資料點，要在每兩個點中間插一個值，也就是用中點內插，新陣列長度為\
 ```
 (m-1)*(insert+1)+1
 ```
@@ -23,7 +23,7 @@ t/(d-t) = (b-c)/(c-a) --> c = (d-t)b + ta。若 d = 1, t = 0.5，則 c = 0.5a + 
 
 ## 2. Lagrange 內插
 如果有 m+1 個資料點，那麼最高可以得到 m 階的多項式\
-f(x) = sum(a<sub>i</sub>x<sup>i</sup>), i=0, 1, 2, ..., m\
+$$f(x) = \sum_{i=0}^{m} (a_i)^i$$
 只需把 a<sub>i</sub> 全部解出來即可，可以寫成矩陣表示，此矩陣稱為 Vandermonde matrix\
 |   |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ f(x) = sum(a<sub>i</sub>x<sup>i</sup>), i=0, 1, 2, ..., m\
 | 1 | x<sub>m</sub> | x<sub>m</sub><sup>2</sup> | ... | x<sub>2</sub><sup>m</sup> | | a<sub>m</sub> | | y<sub>m</sub> |
 
 而 Vandermonde matrix 是一個[病態條件](https://github.com/JrPhy/numerical/tree/master/least-square#1-lu-%E5%88%86%E8%A7%A3)的矩陣，所以通常不會直接去解，而是去展開解。假設有三個點要去找出二次式，那麼\
-P<sub>2</sub>(x) = sum(a<sub>i</sub>x<sup>i</sup>), i=0, 1, 2\
+$$P_2(x) = \sum_{i=0}^{2} (a_i)^i$$
 P<sub>2</sub>(x<sup>0</sup>) = f(x<sub>0</sub>)\
 P<sub>2</sub>(x<sup>1</sup>) = f(x<sub>1</sub>)\
 P<sub>2</sub>(x<sup>2</sup>) = f(x<sub>2</sub>)\
@@ -41,10 +41,10 @@ P<sub>2</sub>(x<sup>2</sup>) = f(x<sub>2</sub>)\
 將每個三階行列式做完基本列運算在做降階可得\
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_inter_sol.jpg)\
 即可得到之前熟悉的形式。用連加與連乘符號即可化簡為\
-![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_poly.jpg)\
+![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_poly.jpg)
 
 #### Runge 現象
-假設有一函數為 f(x) = 1/(1+25x<sup>2</sup>)，在函數上得到 m+1 個點，且用 Lagrange 內插，則在兩端對有很大的震動，所以在選擇次數時通常不會選太高，Spline 內插就是只有使用三次函數進行 fit 與內插
+假設有一函數為 $f(x) = \dfrac{1}{1+25x^2}$，在函數上得到 m+1 個點，且用 Lagrange 內插，則在兩端對有很大的震動，所以在選擇次數時通常不會選太高，Spline 內插就是只有使用三次函數進行 fit 與內插
 ![image](https://upload.wikimedia.org/wikipedia/commons/f/f9/Rungesphenomenon.png)
 
 ## 3. Spline 內插
@@ -68,4 +68,13 @@ S''(x<sub>0</sub><sup>+</sup>) = S''(x<sub>0</sub><sup>+</sup>)\
 S<sub>i</sub>(x) = a<sub>i</sub>(x - x<sub>i</sub>)<sup>3</sup> + b<sub>i</sub>(x - x<sub>i</sub>)<sup>2</sup> + c<sub>i</sub>(x - x<sub>i</sub>) + d<sub>i</sub>\
 S'<sub>i</sub>(x) = 3a<sub>i</sub>(x - x<sub>i</sub>)<sup>2</sup> + 2b<sub>i</sub>(x - x<sub>i</sub>) + c<sub>i</sub>\
 S''<sub>i</sub>(x) = 6a<sub>i</sub>(x - x<sub>i</sub>) + 2b<sub>i</sub>\
-
+可解得
+x<sub>i+1</sub> - x<sub>i</sub> = h<sub>i</sub>\
+d<sub>i+1</sub> = a<sub>i</sub>h<sub>i</sub><sup>3</sup> + b<sub>i</sub>h<sub>i</sub><sup>2</sup> + c<sub>i</sub>h<sub>i</sub> + d<sub>i</sub>\
+c<sub>i+1</sub> = 3a<sub>i</sub>h<sub>i</sub><sup>2</sup> + 2b<sub>i</sub>h<sub>i</sub> + c<sub>i</sub>\
+b<sub>i+1</sub> = 3a<sub>i</sub>h<sub>i</sub><sup>2</sup> + 2b<sub>i</sub>\
+整理一下可得 **Hb = y**\
+![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/spline.jpg)\
+在此取 b<sub>0</sub> = b<sub>n</sub> = 0，為 Natural Cubic Spline，最後就可以得到\
+d<sub>i</sub> = y<sub>i</sub>, a<sub>i</sub> = (b<sub>i+1</sub> - b<sub>i</sub>)/3h<sub>i</sub>\
+c<sub>i</sub> = (y<sub>i+1</sub> - y<sub>i</sub>)/h<sub>i</sub> + (2b<sub>i+1</sub> - b<sub>i</sub>)*h<sub>i</sub>/3\
