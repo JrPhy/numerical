@@ -45,6 +45,27 @@ P<sub>2</sub>(x<sup>2</sup>) = f(x<sub>2</sub>)\
 
 #### Runge 現象
 假設有一函數為 f(x) = 1/(1+25x<sup>2</sup>)，在函數上得到 m+1 個點，且用 Lagrange 內插，則在兩端對有很大的震動，所以在選擇次數時通常不會選太高，Spline 內插就是只有使用三次函數進行 fit 與內插
-![image](https://zh.wikipedia.org/zh-tw/%E9%BE%99%E6%A0%BC%E7%8E%B0%E8%B1%A1#/media/File:Rungesphenomenon.png)
+![image](https://upload.wikimedia.org/wikipedia/commons/f/f9/Rungesphenomenon.png)
 
 ## 3. Spline 內插
+在 Word 與 PPT 中有貝茲曲線，就是一種 Spline 曲線，用來連接兩個不同點的曲線。在此我們常取三次方的 Spline 曲線來使用，稱為 Cubic Spline，但是有四個未知數卻只有兩個方程式，是否可以得到唯一一條曲線呢?在此還需要加上其他條件，為了讓整條曲線看起來更平滑，還需要在邊界上有一階與二階微分連續的條件，所以\
+S(x<sub>0</sub><sup>+</sup>) = S(x<sub>0</sub><sup>+</sup>)\
+S'(x<sub>0</sub><sup>+</sup>) = S'(x<sub>0</sub><sup>+</sup>)\
+S''(x<sub>0</sub><sup>+</sup>) = S''(x<sub>0</sub><sup>+</sup>)\
+會發現還缺少了一個條件。因為在此還有微分，所以最後在給定初始條件即可唯一決定一條 Cubic Spline。實際上根據不同的初始條件，也會有不同的性質\
+1. Natural Spline: 起始點與終點的二階微分為 0，也就是 S''(x<sub>0</sub>) = 0 = S''(x<sub>n</sub>)
+2. Clamped Spline: 起始點與終點的一階微分為 0，也就是 S'(x<sub>0</sub>) = 0 = S'(x<sub>n</sub>)
+3. Not-A-Knot Spline: 再加入三階微分連續條件
+
+有這些條件在連接點上會有比較平滑。假設有 n+1 個點 (x<sub>0</sub>, y<sub>0</sub>), (x<sub>1</sub>, y<sub>1</sub>), ..., (x<sub>n</sub>, y<sub>n</sub>)，就可以分段寫成
+|   |  |
+| --- | --- |
+| S<sub>0</sub> | x<sub>0</sub> ≤ x ≤ x<sub>1</sub> |
+| S<sub>1</sub> | x<sub>1</sub> ≤ x ≤ x<sub>2</sub> |
+| . | . |
+| S<sub>m</sub> | x<sub>n-1</sub> ≤ x ≤ x<sub>n</sub> |
+
+S<sub>i</sub>(x) = a<sub>i</sub>(x - x<sub>i</sub>)<sup>3</sup> + b<sub>i</sub>(x - x<sub>i</sub>)<sup>2</sup> + c<sub>i</sub>(x - x<sub>i</sub>) + d<sub>i</sub>\
+S'<sub>i</sub>(x) = 3a<sub>i</sub>(x - x<sub>i</sub>)<sup>2</sup> + 2b<sub>i</sub>(x - x<sub>i</sub>) + c<sub>i</sub>\
+S''<sub>i</sub>(x) = 6a<sub>i</sub>(x - x<sub>i</sub>) + 2b<sub>i</sub>\
+
