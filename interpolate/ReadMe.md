@@ -76,5 +76,4 @@ b<sub>i+1</sub> = 3a<sub>i</sub>h<sub>i</sub><sup>2</sup> + 2b<sub>i</sub>\
 整理一下可得 **Hb = y**\
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/spline.jpg)\
 在此取 b<sub>0</sub> = b<sub>n</sub> = 0，為 Natural Cubic Spline，最後就可以得到\
-d<sub>i</sub> = y<sub>i</sub>, a<sub>i</sub> = (b<sub>i+1</sub> - b<sub>i</sub>)/3h<sub>i</sub>\
-c<sub>i</sub> = (y<sub>i+1</sub> - y<sub>i</sub>)/h<sub>i</sub> + (2b<sub>i+1</sub> - b<sub>i</sub>)*h<sub>i</sub>/3\
+d<sub>i</sub> = y<sub>i</sub>, $a_i = \dfrac{b_i+1-b_i}{3h_i}$, $c_i = \dfrac{y_{i+1}-y_i}{h_i} + \dfrac{(2b_{i+1}-b_i)h_i}{3}$
