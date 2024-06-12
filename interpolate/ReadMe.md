@@ -11,7 +11,8 @@ a-------------c---------------------b
 |-------------|---------------------|
 ----- d - t ------------ t ----------
 ```
-由距離比例可知 t/(d-t) = (b-c)/(c-a) --> c = (d-t)b + ta。若 d = 1, t = 0.5，則 c = 0.5a + 0.5b\
+由距離比例可知\
+t/(d-t) = (b-c)/(c-a) --> c = (d-t)b + ta。若 d = 1, t = 0.5，則 c = 0.5a + 0.5b\
 而在程式中只存資料點，做內插之後資料點會變多，所以要另外新開一個陣列。假設原本有 m 的資料點，要在每兩個點中間插一個值，也就是用中點內插，新陣列長度為\
 ```
 (m-1)*(insert+1)+1
@@ -31,7 +32,7 @@ f(x) = sum(a<sub>i</sub>x<sup>i</sup>), i=0, 1, 2, ..., m\
 | . | . | . | . | . | | . | | . | | . |
 | 1 | x<sub>m</sub> | x<sub>m</sub><sup>2</sup> | ... | x<sub>2</sub><sup>m</sup> | | a<sub>m</sub> | | y<sub>m</sub> |
 
-而 Vandermonde matrix 是一個[病態條件](https://github.com/JrPhy/numerical/tree/master/least-square#1-lu-%E5%88%86%E8%A7%A3)的矩陣，所以通常不會直接去解，而是去展開解。假設有三個點要去找出二次式，那麼
+而 Vandermonde matrix 是一個[病態條件](https://github.com/JrPhy/numerical/tree/master/least-square#1-lu-%E5%88%86%E8%A7%A3)的矩陣，所以通常不會直接去解，而是去展開解。假設有三個點要去找出二次式，那麼\
 P<sub>2</sub>(x) = sum(a<sub>i</sub>x<sup>i</sup>), i=0, 1, 2\
 P<sub>2</sub>(x<sup>0</sup>) = f(x<sub>0</sub>)\
 P<sub>2</sub>(x<sup>1</sup>) = f(x<sub>1</sub>)\
@@ -41,3 +42,9 @@ P<sub>2</sub>(x<sup>2</sup>) = f(x<sub>2</sub>)\
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_inter_sol.jpg)\
 即可得到之前熟悉的形式。用連加與連乘符號即可化簡為\
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_poly.jpg)\
+
+#### Runge 現象
+假設有一函數為 f(x) = 1/(1+25x<sup>2</sup>)，在函數上得到 m+1 個點，且用 Lagrange 內插，則在兩端對有很大的震動，所以在選擇次數時通常不會選太高，Spline 內插就是只有使用三次函數進行 fit 與內插
+![image](https://zh.wikipedia.org/zh-tw/%E9%BE%99%E6%A0%BC%E7%8E%B0%E8%B1%A1#/media/File:Rungesphenomenon.png)
+
+## 3. Spline 內插
