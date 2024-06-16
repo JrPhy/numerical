@@ -13,26 +13,16 @@ $$\frac{1}{\Phi}\frac{\partial^2 \Phi}{\partial \phi^2} = -m^2 \rightarrow \Phi(
 $$[\frac{1}{R}\frac{d }{d r}(r^2\frac{d R}{d r}) + k^2r^2]+[\frac{1}{\Theta}\frac{d }{sin \theta d \theta}(sin \theta)\frac{d \Theta}{d \theta} - \frac{m^2}{sin^2 \theta}\ = 0$$
 再來求解 Θ(θ) 方向，其形式為 [associated Legendre](https://en.wikipedia.org/wiki/Associated_Legendre_polynomials)，令 x = cosθ，y = Φ，就可以把方程式改寫為
 $$(1-x^2)y'' - 2xy' +[n(n+1) - \frac{m^2}{1-x^2}] = 0$$
-
-其中  0 ≤ θ ≤ pi, -1 ≤ y ≤ 1, , -n ≤ m ≤ n。n 為正整數，其解為
-
-P<sup>m</sup><sub>n</sub> (cosθ)
-
+其中  0 ≤ θ ≤ pi, -1 ≤ y ≤ 1, , -n ≤ m ≤ n。n 為正整數，其解為 $P^m_n (cos \theta)$\
 m 為第幾階，表示為幾次多項式，n 為第幾個根，可展開後看其形式。並利用歸一化條件可得到
 $$\tilde P^m_n (cos \theta) = \sqrt{\frac{2n+1}{2} \frac{(n-m)!}{(n+m)!}}P^m_n (cos \theta)$$
 最後就把 Θ 與 Φ 的解帶入就可以去解 R 方向\
 $$[\frac{1}{R}\frac{d }{d r}(r^2\frac{d R}{d r}) + k^2r^2] - n(n+1)$$
-得到 Spherical Hankle's function h<sub>n</sub>(r)解
-h<sub>n</sub>(r) = j<sub>n</sub>(r) ± iy<sub>n</sub>(r)
-
+得到 Spherical Hankle's function h<sub>n</sub>(r)解 $h_n (r) = j_n (r) \pm iy_n (r) $\
 其中 j 為 Spherical Bessel's function，y 為 Spherical Neumann's function，大寫的為普通的 Hankle/Bessel/Neumann
-
 $$j_n(r) = \sqrt{\frac{\pi}{2r}} J_{n+1/2}(r), y_n(r) = \sqrt{\frac{\pi}{2r}} Y_{n+1/2}(r)$$
-
 最後帶回去就可以得到電場的形式為
-
 $$E(r, \theta, \phi) = h_n(r) P^m_n (cos \theta) e^{\pm im\phi} = h_n(r) Y^m_n (cos \theta) $$
-
 其中 Θ(θ)Φ(φ) 稱為 [Spherical Harmonic function](https://en.wikipedia.org/wiki/Spherical_harmonics)，也就是在角度方向上的解，其歸一化形式為\
 $$\tilde Y^m_n (cos \theta) = \sqrt{\frac{2n+1}{4\pi} \frac{(n-|m|)!}{(n+|m|)!}}Y^m_n (cos \theta)$$
 ## 2. 特殊函數的數值解
@@ -48,8 +38,6 @@ $$P^m_m (x) = \sqrt{\frac{2n+1 }{2(2m)!}}(2m-1)!!\sqrt{(1-x^2)^m}$$
 然後計算 m ≤ n 的形式
 $$(n-m)P^m_n (x) = x(2n-1)P^m_{n-1} (x) + x(n+m-1)P^m_{n-2} (x)$$
 整理一下可得
-$$P^m_n (x) = \frac{x(2n-1)}{(n-m)}P^m_{n-1} (x) + \frac{x(n+m-1)}{(n-m)}P^m_{n-2} (x)$$
-
+$$P^-m_n (x) = \frac{x(2n-1)}{(n-m)}P^m_{n-1} (x) + \frac{x(n+m-1)}{(n-m)}P^m_{n-2} (x)$$
 如此一來就得到 0 ≤ m 的形式。當 m 為負數時也可由下方關係得到
-
-*P*<sup>-m</sup><sub>n</sub> (x) = (-1)<sup>m</sup>((n-m)!/(n+m)!)*P*<sup>m</sup><sub>n-1</sub> (x)
+$$P^m_n (x) = (-1)^m\frac{(n-m)!}{(n+m)!} P^m_{n-1} (x)$$
