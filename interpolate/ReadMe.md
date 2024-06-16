@@ -33,10 +33,7 @@ $$f(x) = \sum_{i=0}^{m} (a_i)^i$$
 | 1 | x<sub>m</sub> | x<sub>m</sub><sup>2</sup> | ... | x<sub>2</sub><sup>m</sup> | | a<sub>m</sub> | | y<sub>m</sub> |
 
 而 Vandermonde matrix 是一個[病態條件](https://github.com/JrPhy/numerical/tree/master/least-square#1-lu-%E5%88%86%E8%A7%A3)的矩陣，所以通常不會直接去解，而是去展開解。假設有三個點要去找出二次式，那麼\
-$$P_2(x) = \sum_{i=0}^{2} (a_i)^i$$
-P<sub>2</sub>(x<sup>0</sup>) = f(x<sub>0</sub>)\
-P<sub>2</sub>(x<sup>1</sup>) = f(x<sub>1</sub>)\
-P<sub>2</sub>(x<sup>2</sup>) = f(x<sub>2</sub>)\
+$$P_2(x) = \sum_{i=0}^{2} a_ix^i, P_2(x_0) = f(x_0),  P_2(x_1) = f(x_1),  P_2(x_2) = f(x_2)$$
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_inter.jpg)\
 將每個三階行列式做完基本列運算在做降階可得\
 ![image](https://github.com/JrPhy/numerical/blob/master/interpolate/pic/Lagrange_inter_sol.jpg)\
