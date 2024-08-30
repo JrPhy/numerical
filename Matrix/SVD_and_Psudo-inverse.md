@@ -33,4 +33,87 @@ A* = (UΣV*)* = VΣ*U * = VΣU* --> A*U = VΣ\
 
 $$\ <v_{i}, v_{j}> = <\frac{T*(u_{i})}{\sigma_{i}}, \frac{T*(u_{j})}{\sigma_{j}}> = \frac{1}{\sigma_{i}\sigma_{j}}<T*T(u_{i}), u_{j}> = \frac{\sigma_{i}^2}{\sigma_{i}\sigma_{j}}<u_{i}, u_{j}> = \delta_{ij} $$
 
-## 範例
+## 範例 1
+$$\begin{equation}
+    \begin{matrix}
+        x_{1} + x_{2} - x_{3} &=& 1\\
+        x_{1} + x_{2} - x_{3} &=& 2
+    \end{matrix}
+    \rightarrow
+    \begin{bmatrix}
+        1&1&-1 \\
+        1&1&-1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_{1} \\
+        x_{2} \\
+        x_{3} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\
+        2 \\
+    \end{bmatrix}
+\end{equation}$$
+
+$$\begin{equation}
+    \begin{matrix}
+        AA^T = 
+    \end{matrix}
+    \begin{bmatrix}
+        1&1&-1 \\
+        1&1&-1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        1&1 \\
+        1&1 \\
+        -1&-1 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3&3 \\
+        3&3 \\
+    \end{bmatrix}
+    \rightarrow
+    \begin{vmatrix}
+        3-\lambda&3 \\
+        3&3-\lambda
+    \end{vmatrix}
+    = \lambda(6-\lambda) = 0
+\end{equation}$$
+
+$$\begin{equation}
+    \begin{matrix}
+        A^TA = 
+    \end{matrix}
+    \begin{bmatrix}
+        1&1 \\
+        1&1 \\
+        -1&-1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        1&1&-1 \\
+        1&1&-1 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        2&2&-2 \\
+        2&2&-2 \\
+        -2&-2&2 \\
+    \end{bmatrix}
+    \rightarrow
+    \begin{vmatrix}
+        2-\lambda&2 \\
+        2&2-\lambda \\
+        -2&-&2-\lambda \\
+    \end{vmatrix}
+    = \lambda^2(6-\lambda) = 0
+\end{equation}$$
+
+可知兩者的特徵值為 0, 6。
+
+## 範例 2
+∵ A = UΣV<sup>T</sup> --> A<sup>T</sup> = (UΣV<sup>T</sup>)<sup>T</sup> = VΣ<sup>T</sup>U<sup>T</sup>\
+AA<sup>T</sup> = UΣV<sup>T</sup>VΣ<sup>T</sup>U<sup>T</sup> = UΣ<sup>2</sup>V<sup>T</sup>\
+A<sup>T</sup>A = VΣ<sup>T</sup>U<sup>T</sup>UΣV<sup>T</sup> = VΣ<sup>2</sup>U<sup>T</sup>
+
