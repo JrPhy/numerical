@@ -9,8 +9,8 @@ $$\frac{d}{dx} f(x) = f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
 $$\frac{d}{dx} f(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \rightarrow \frac{\Delta f(x)}{\Delta x} = \frac{f(x+\Delta x) - f(x)}{\Delta x}$$
 舉例來說 $\Delta x = 2$，則差分方程轉為 code 為
 $$\frac{\Delta f(x)}{\Delta x} = \frac{f(x+2) - f(x)}{2} \rightarrow \frac{\Delta f[0]}{\Delta x[0]} = \frac{f[2] - f[0]}{2}, \frac{\Delta f[1]}{\Delta x[1]} = \frac{f[3] - f[1]}{2}$$
-數值微分相較於數值積分比較單純，因為只是求兩點斜率而已。
-![image](https://github.com/JrPhy/numerical/blob/master/Integration/pic/diff_eq.jpg)
+數值微分相較於數值積分比較單純，因為只是求兩點斜率而已。\
+![image](https://github.com/JrPhy/numerical/blob/master/Integration/pic/diff_eq.jpg)\
 [圖一：數值微分]
 ## 2. 積分的定義
 給定一個 f(x), f 在 [a, b] 中連續，且 x∈[a, b]。積分就是與座標軸圍成的面/體積。雖然 f(x) 不用連續也可以積分，只需要分段積分即可。
