@@ -238,5 +238,9 @@ A ∈ M<sub>m×n</sub>(R) 且 A = UΣV*，則 A<sub>+</sub>(A 的偽逆矩陣) =
  的偽逆矩陣。Σ<sub>ij</sub> = σ<sub>i</sub>δ<sub>ij</sub>，Σ<sup>+</sup> = Σ<sub>ji</sub> = σ<sub>i</sub><sup>-1</sup>δ<sub>ij</sub>。注意到 AA<sup>+</sup> 且 A<sup>+</sup>A 不一定為 I
 
 ## rank-deficient 的最小平方定理 2
-1. 若 Ax = b 且 A 為 full-rank，則存在一個解 z 且有最小的長度。\
+1. 若 Ax = b 且 A 為 full-rank，則存在一個解 z 且有最小的長度。[證明](https://github.com/JrPhy/numerical/tree/master/least-square)
 2. 若 Ax = b 且 A 為 rank-deficient，則存在一個解 z 且最接近最小的長度。
+
+#### 證明 2.
+假設 x<sub>0</sub> 是 Ax = b 的最佳近似解，則 ||Ax - b|| ≥ ||Ax<sub>0</sub> - b||\
+Ax - b = A(x-A<sup>+</sup>)b - (I - AA<sup>+</sup>)(-b)\
