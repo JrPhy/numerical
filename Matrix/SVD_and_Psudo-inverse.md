@@ -117,3 +117,41 @@ $$\begin{equation}
 AA<sup>T</sup> = UΣV<sup>T</sup>VΣ<sup>T</sup>U<sup>T</sup> = UΣ<sup>2</sup>V<sup>T</sup>\
 A<sup>T</sup>A = VΣ<sup>T</sup>U<sup>T</sup>UΣV<sup>T</sup> = VΣ<sup>2</sup>U<sup>T</sup>
 
+## 範例 3
+$$\begin{equation}
+    \begin{matrix}
+        AV = 
+    \end{matrix}
+    \begin{bmatrix}
+        1&1&-1 \\
+        1&1&-1 \\
+    \end{bmatrix}
+    \frac{1}{\sqrt{6}}
+    \begin{bmatrix}
+        \sqrt{2}&\sqrt{3}&1 \\
+        \sqrt{2}&-\sqrt{3}&1 \\
+        -\sqrt{2}&0&2 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sqrt{3}&0&0 \\
+        \sqrt{3}&0&0 \\
+    \end{bmatrix}
+\end{equation}$$
+
+U 為 M<sub>2</sub>(R)，所以
+
+$$\begin{equation}
+    \begin{matrix}
+        u_{1} = \frac{Av_{1}}{\sigma_{1}} = \frac{1}{\sqrt{6}}
+    \end{matrix}
+    \begin{bmatrix}
+        \sqrt{3} \\
+        \sqrt{3} \\
+    \end{bmatrix}
+    = \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+        1 \\
+        1 \\
+    \end{bmatrix}
+\end{equation}$$
