@@ -155,3 +155,88 @@ $$\begin{equation}
         1 \\
     \end{bmatrix}
 \end{equation}$$
+
+$$\begin{equation}
+    \begin{matrix}
+        Av_{21} = \frac{1}{\sqrt{2}}, u_{2} = \frac{1}{\sqrt{2}}
+    \end{matrix}
+    \begin{bmatrix}
+        1 \\
+        -1 \\
+    \end{bmatrix}
+    \rightarrow U = \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+        1&1 \\
+        1&-1 \\
+    \end{bmatrix}
+\end{equation}$$
+
+$$\begin{equation}
+    \begin{matrix}
+        A = U\Sigma V^T = 
+    \end{matrix}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}} \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \sqrt{6}&0&0 \\
+        0&0&0 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{3}}&\frac{1}{\sqrt{3}}&-\frac{1}{\sqrt{3}} \\
+        \frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}&0 \\
+        \frac{1}{\sqrt{6}}&\frac{1}{\sqrt{6}}&-\frac{2}{\sqrt{6}} \\
+    \end{bmatrix}
+\end{equation}$$
+
+由 Σ 內的元素可知，因為其餘部分乘起來為 0，所以只須關心不為零的元素
+
+$$\begin{equation}
+    \begin{matrix}
+        A = U\Sigma V^T = 
+    \end{matrix}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{2}}&* \\
+        \frac{1}{\sqrt{2}}&* \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \sqrt{6}&0&0 \\
+        0&0&0 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{3}}&\frac{1}{\sqrt{3}}&-\frac{1}{\sqrt{3}} \\
+        *& *& * \\
+        *& *& * \\
+    \end{bmatrix}
+\end{equation}$$
+
+所以實際在計算時 Σ 為稀疏矩陣，就不需要存整個矩陣，就可以省下記憶體。
+
+## 反矩陣
+A 可逆 <--> A 式方陣且 det(A) ≠ 0。而可逆的定義為
+
+若 A ∈ M<sub>m</sub>(R) 為可逆，則存在一個 B ∈ M<sub>m</sub>(R) 使得 AB = BA = I<sub>m</sub> --> AI = A(AB) = A(BA) = A，此可用來解最小平方問題。
+
+## 偽逆矩陣
+可看成一個一般化的逆矩陣。若 A ∈ M<sub>m×n</sub>(R) 且 A 為不可逆，但是存在其偽逆矩陣。在非 full-rank 的最小平方問題中就可使用此性質來求解。
+
+#### 定義
+令 A ∈ M<sub>m×n</sub>(R)，解 X 為 A 的偽逆矩陣滿足以下關係
+
+1. AXA = A
+2. XAX = X
+3. (AX)* = XA
+4. (XA)* = AX
+
+此在最小平方問題的解如下：\
+若 Ax = b 且 A 為 full-rank <--> x<sub>0</sub> = (A<sup>T</sup>A)<sup>-1</sup>A<sup>T</sup>b\
+若 Ax = b 且 A 為 rank-deficient <--> x<sup>+</sup> = A<sup>+</sup>b\
+
+## rank-deficient 的最小平方定理 1
+A ∈ M<sub>m×n</sub>(R) 且 A = UΣV*，則 A<sub>+</sub>(A 的偽逆矩陣) = UΣ<sup>+</sup>V* ，Σ<sup>+</sup> 為 Σ
+ 的偽逆矩陣。Σ<sub>ij</sub> = σ<sub>i</sub>δ<sub>ij</sub>，Σ<sup>+</sup> = Σ<sub>ji</sub> = σ<sub>i</sub><sup>-1</sup>δ<sub>ij</sub>。注意到 AA<sup>+</sup> 且 A<sup>+</sup>A 不一定為 I
+
+## rank-deficient 的最小平方定理 2
+1. 若 Ax = b 且 A 為 full-rank，則存在一個解 z 且有最小的長度。\
+2. 若 Ax = b 且 A 為 rank-deficient，則存在一個解 z 且最接近最小的長度。
