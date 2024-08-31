@@ -244,3 +244,39 @@ A ∈ M<sub>m×n</sub>(R) 且 A = UΣV*，則 A<sub>+</sub>(A 的偽逆矩陣) =
 #### 證明 2.
 假設 x<sub>0</sub> 是 Ax = b 的最佳近似解，則 ||Ax - b|| ≥ ||Ax<sub>0</sub> - b||\
 Ax - b = A(x-A<sup>+</sup>)b - (I - AA<sup>+</sup>)(-b)\
+因為這些向量組成三角形，所以可以利用畢氏定理來估算。
+
+## 範例 4
+承範例 1.
+
+$$\begin{equation}
+    A = 
+    \begin{bmatrix}
+        1&1&-1 \\
+        1&1&-1 \\
+    \end{bmatrix}
+    A^+ = \frac{1}{6}
+    \begin{bmatrix}
+        1&1 \\
+        1&1 \\
+        -1&-1 \\
+    \end{bmatrix}
+    \rightarrow z = A^+b = \frac{1}{6}
+    \begin{bmatrix}
+        1&1 \\
+        1&1 \\
+        -1&-1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\
+        2 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\
+        1 \\
+        -1 \\
+    \end{bmatrix}
+\end{equation}$$
+
+當然此題有無窮多解，所以 z 為「最佳近似」解。
