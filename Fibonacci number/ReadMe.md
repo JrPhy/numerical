@@ -80,6 +80,7 @@ $$\ F_{n} = frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^n - frac{1}{\sqrt{5}}(\frac{
 int F(int n) {
     if(n <= 0) return n;
     else return F(n-1)+F(n-2);
+}
 ```
 此算法為 top-down 的遞迴，例如當 n=5，我們要先算 F(4) 與 F(3)，F(3) 需要算 F(2) 與 F(1) 。其複雜度即為 $$\ O((\frac{1+\sqrt{5}}{2})^n) $$
 ![img](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*bGJzheJAhePGVSkTCUw7IA.jpeg)\
