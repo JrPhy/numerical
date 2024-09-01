@@ -72,7 +72,7 @@ $$\begin{equation}
     \end{bmatrix}
 \end{equation}$$
 
-$$\ F_{n} = frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^n - frac{1}{\sqrt{5}}(\frac{1-\sqrt{5}}{2})^n $$
+$$\ F_{n} = \frac{1}{\sqrt{5}}(\frac{1+\sqrt{5}}{2})^n - \frac{1}{\sqrt{5}}(\frac{1-\sqrt{5}}{2})^n $$
 
 ## 程式碼
 計算費式數列對於程式新手是一個很好學習遞迴的範例
