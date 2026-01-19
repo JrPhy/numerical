@@ -3,17 +3,12 @@
 #include<math.h>
 
 double function(double x)
-{
-	return x*x - 4*x+2;
-}
+{return x*x - 4*x+2;}
 
 double dfx(double x0, double x1)
-{
-	return (function(x1) - function(x0))/(x1-x0);
-}
+{return (function(x1) - function(x0))/(x1-x0);}
 
-double onedGD(double x0, unsigned int max_iters, double lambda, double error)
-{
+double onedGD(double x0, unsigned int max_iters, double lambda, double error) {
 	double x1 = x0 + 0.1;
     unsigned int iters = 0;
     double temp,c_error = error+1;
@@ -35,3 +30,4 @@ int main() {
     printf("%f\n",onedGD(10.0, max_iters, lambda, error));
     return 0;
 }
+
