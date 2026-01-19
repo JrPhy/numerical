@@ -1,17 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-void LRGD(int max_iters, double lambda, double y[], double x[], int datalength)
+void LRGD(int max_iters, double lambda, double y[], double x[], int datalength) {
 //Linear Regression by Gradient Descent
-{
 	double b = 0, a = 0, tempb = 0, tempa = 0;
     int iters = 0;
     double totalData = (double) datalength;
 
-    while(iters < max_iters)
-    {
-        for(int i=0;i<datalength;i++)
-        {
+    while(iters < max_iters) {
+        for(int i=0;i<datalength;i++) {
             tempb -= (1/totalData)*(y[i]-(b*x[i]+a))*(-2*x[i]);
             tempa -= (1/totalData)*(y[i]-(b*x[i]+a))*(-2);
         }
@@ -24,17 +21,14 @@ void LRGD(int max_iters, double lambda, double y[], double x[], int datalength)
     printf("y = %fx+%f\n",b,a);
 }
 
-void PRGD(int max_iters, double lambda, double y[], double x[], int datalength, int degree)
+void PRGD(int max_iters, double lambda, double y[], double x[], int datalength, int degree) {
 //Polynomial Regression by Gradient Descent
-{
 	double coef[degree+1] = {0}, tempcoef[degree+1] = {0}, temp = 0;
 	//double coef[degree+1] = {0}, tempcoef[degree+1], temp = 0;
     int iters = 0;
     double totalData = (double) datalength;
-    while(iters < max_iters)
-    {
-        for(int i=0;i<datalength;i++)
-        {
+    while(iters < max_iters) {
+        for(int i=0;i<datalength;i++) {
         	for(int j=0;j<degree+1;j++) temp += coef[j]*pow(x[i],j);
         	for(int j=0;j<degree+1;j++) tempcoef[j] -= (-2/totalData)*(y[i]-temp)*(pow(x[i],j));
         	temp = 0;
@@ -44,8 +38,7 @@ void PRGD(int max_iters, double lambda, double y[], double x[], int datalength, 
         if(iters % 100000 == 0 ) printf("\n iterators times %d\n", iters);
     }
 	printf("y = ");
-    for(int j=degree;j>=0;j--) 
-    {
+    for(int j=degree;j>=0;j--) {
 		if(j == 1) printf("%fx+",coef[j]);
 		else if (j == 0) printf("%fx",coef[j]);
 		else printf("%fx^%d+",coef[j], j);
@@ -66,3 +59,4 @@ int main() {
     //PRGD(max_iters, lambda, y, x, datalength, degree);
     return 0;
 }
+
