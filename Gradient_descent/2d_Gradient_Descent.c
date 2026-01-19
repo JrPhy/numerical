@@ -2,22 +2,15 @@
 #include<stdlib.h>
 #include<math.h>
 double function(double x, double y)
-{
-	return x*x - 4*x+2 + y*y - 4*y + 2;
-}
+{return x*x - 4*x+2 + y*y - 4*y + 2;}
 
 double dfx(double x0, double x1, double y0)
-{
-	return (function(x1, y0) - function(x0, y0))/(x1-x0);
-}
+{return (function(x1, y0) - function(x0, y0))/(x1-x0);}
 
 double dfy(double x1, double y0, double y1)
-{
-	return (function(x1, y1) - function(x1, y0))/(y1-y0);
-}
+{return (function(x1, y1) - function(x1, y0))/(y1-y0);}
 
-void twodGD(double x0, double y0, unsigned int max_iters, double lambda, double error)
-{
+void twodGD(double x0, double y0, unsigned int max_iters, double lambda, double error) {
 	double x1 = x0 + 0.1;
 	double y1 = y0 + 0.1;
     unsigned int iters = 0;
@@ -44,3 +37,4 @@ int main() {
     twodGD(10.0, 20.0, max_iters, lambda, error);
     return 0;
 }
+
